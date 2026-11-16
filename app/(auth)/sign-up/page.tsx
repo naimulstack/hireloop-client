@@ -12,13 +12,12 @@ import {
     EyeOff,
     Briefcase,
     UserSearch,
+    ShieldCheck,
 } from "lucide-react";
 import logo from "@/app/Images/logo.png";
 import { signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-
-
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -69,7 +68,8 @@ export default function SignUpPage() {
                 name: name.trim(),
                 email: email.trim(),
                 password,
-            });
+                role,
+            } as Parameters<typeof signUp.email>[0]);
 
             if (error) {
                 toast.error(error.message || "Sign up failed. Please try again.");
@@ -112,29 +112,41 @@ export default function SignUpPage() {
                     </p>
                 </div>
 
-                <div className="mb-6 grid grid-cols-2 gap-3">
+                <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <button
                         type="button"
                         onClick={() => setRole("seeker")}
                         className={`flex items-center justify-center gap-2 rounded-lg border p-3 text-sm ${role === "seeker"
-                            ? "border-[#6e56f8] bg-[#6e56f8]/10"
-                            : "border-white/10"
+                                ? "border-[#6e56f8] bg-[#6e56f8]/10"
+                                : "border-white/10"
                             }`}
                     >
                         <UserSearch size={17} />
-                        Job Seeker
+                        Seeker
                     </button>
 
                     <button
                         type="button"
-                        onClick={() => setRole("employer")}
-                        className={`flex items-center justify-center gap-2 rounded-lg border p-3 text-sm ${role === "employer"
-                            ? "border-[#6e56f8] bg-[#6e56f8]/10"
-                            : "border-white/10"
+                        onClick={() => setRole("recruiter")}
+                        className={`flex items-center justify-center gap-2 rounded-lg border p-3 text-sm ${role === "recruiter"
+                                ? "border-[#6e56f8] bg-[#6e56f8]/10"
+                                : "border-white/10"
                             }`}
                     >
                         <Briefcase size={17} />
-                        Employer
+                        Recruiter
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => setRole("admin")}
+                        className={`flex items-center justify-center gap-2 rounded-lg border p-3 text-sm ${role === "admin"
+                                ? "border-[#6e56f8] bg-[#6e56f8]/10"
+                                : "border-white/10"
+                            }`}
+                    >
+                        <ShieldCheck size={17} />
+                        Admin
                     </button>
                 </div>
 
@@ -195,7 +207,7 @@ export default function SignUpPage() {
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-3.5 text-zinc-500"
+                                className="absolute right-3 top-3.5 -translate-y-1/2 text-zinc-500"
                             >
                                 {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
                             </button>
@@ -221,7 +233,7 @@ export default function SignUpPage() {
                             <button
                                 type="button"
                                 onClick={() => setShowConfirm(!showConfirm)}
-                                className="absolute right-3 top-3.5 text-zinc-500"
+                                className="absolute right-3 top-3.5 -translate-y-1/2 text-zinc-500"
                             >
                                 {showConfirm ? <EyeOff size={17} /> : <Eye size={17} />}
                             </button>

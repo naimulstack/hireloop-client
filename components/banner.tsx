@@ -9,8 +9,8 @@ import {
     Star,
     type LucideIcon,
 } from "lucide-react";
-import globe from "@/app/Images/globe.png"; // change extension if it's .jpg / .svg
-
+import globe from "@/app/Images/globe.png";
+import { Navbar } from "@/components/navbar";
 const trendingPositions = [
     "Product Designer",
     "AI Engineering",
@@ -20,7 +20,7 @@ const trendingPositions = [
 const stats: { icon: LucideIcon; value: string; label: string }[] = [
     { icon: Briefcase, value: "50K", label: "Active Jobs" },
     { icon: BarChart3, value: "12K", label: "Companies" },
-    { icon: Users, value: "2M", label: "Job Seekers" },
+    { icon: Users, value: "2M", label: "Seekers" },
     { icon: Star, value: "97%", label: "Satisfaction Rate" },
 ];
 
@@ -29,7 +29,7 @@ export function Banner() {
         <section className="relative bg-[#0a0a0c] text-white overflow-hidden">
             {/* Optional: if Navbar is already in layout.tsx, you can remove this from here */}
 
-
+            <Navbar />
             {/* top content */}
             <div className="relative z-10 mx-auto max-w-6xl px-4 pt-36 text-center md:px-8 md:pt-40">        {/* badge */}
                 <div className="flex items-center justify-center gap-3">

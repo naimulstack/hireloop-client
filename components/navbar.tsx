@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import logo from "@/app/Images/logo.png";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 import {
   Sheet,
   SheetClose,
@@ -52,7 +53,7 @@ export function Navbar() {
 
           <Separator
             orientation="vertical"
-            className="mx-6 h-6 bg-white/15"
+            className="mx-6 h-8 bg-white/15 py-5"
           />
 
           <div className="flex items-center gap-6">
@@ -64,25 +65,28 @@ export function Navbar() {
             </Link>
 
             <Button
-              asChild
+              nativeButton={false}
+              render={<Link href="/get-started" />}
               className="h-10 rounded-lg bg-gradient-to-r from-[#5b5cf0] to-[#7b61ff] px-5 text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-90"
             >
-              <Link href="/get-started">Get Started</Link>
+              Get Started
             </Button>
           </div>
         </div>
 
         {/* Mobile menu */}
         <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-gray-200 hover:bg-white/10 hover:text-white md:hidden"
-            >
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Open menu</span>
-            </Button>
+          <SheetTrigger
+            render={
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-gray-200 hover:bg-white/10 hover:text-white md:hidden"
+              />
+            }
+          >
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Open menu</span>
           </SheetTrigger>
 
           <SheetContent
@@ -95,34 +99,47 @@ export function Navbar() {
 
             <nav className="mt-8 flex flex-col gap-6 px-4">
               {navLinks.map((link) => (
-                <SheetClose asChild key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-base font-medium text-gray-300 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
+                <SheetClose
+                  key={link.href}
+                  nativeButton={false}
+                  render={
+                    <Link
+                      href={link.href}
+                      className="text-base font-medium text-gray-300 transition-colors hover:text-white"
+                    />
+                  }
+                >
+                  {link.label}
                 </SheetClose>
               ))}
 
               <Separator className="bg-white/10" />
 
-              <SheetClose asChild>
-                <Link
-                  href="/signin"
-                  className="text-base font-medium text-indigo-400 hover:text-indigo-300"
-                >
-                  Sign In
-                </Link>
+              <SheetClose
+                nativeButton={false}
+                render={
+                  <Link
+                    href="/signin"
+                    className="text-base font-medium text-indigo-400 hover:text-indigo-300"
+                  />
+                }
+              >
+                Sign In
               </SheetClose>
 
-              <SheetClose asChild>
-                <Button
-                  asChild
-                  className="h-11 w-full rounded-lg bg-gradient-to-r from-[#5b5cf0] to-[#7b61ff] text-white hover:opacity-90"
-                >
-                  <Link href="/get-started">Get Started</Link>
-                </Button>
+              <SheetClose
+                nativeButton={false}
+                render={
+                  <Link
+                    href="/get-started"
+                    className={cn(
+                      buttonVariants(),
+                      "h-11 w-full bg-gradient-to-r from-[#5b5cf0] to-[#7b61ff] text-white hover:opacity-90"
+                    )}
+                  />
+                }
+              >
+                Get Started
               </SheetClose>
             </nav>
           </SheetContent>
